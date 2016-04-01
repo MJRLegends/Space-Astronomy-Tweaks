@@ -1,0 +1,7 @@
+.gradle/
+bin/
+eclipse/
+.settings/
+gradle/
+gradlew
+gradlew.bat
