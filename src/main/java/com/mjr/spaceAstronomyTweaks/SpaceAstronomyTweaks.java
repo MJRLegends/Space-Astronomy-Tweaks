@@ -10,8 +10,6 @@ import org.apache.logging.log4j.Logger;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -35,7 +33,6 @@ public class SpaceAstronomyTweaks {
 				if (i < 0) {
 					listFromURL[i] = listFromURL[i].substring(4);
 				}
-
 				String name = listFromURL[i].substring(0, listFromURL[i].indexOf(','));
 				String serverIP = listFromURL[i].substring(listFromURL[i].indexOf(name) + name.length() + 1);
 				serverIP = serverIP.substring(0, serverIP.indexOf(','));
@@ -66,14 +63,5 @@ public class SpaceAstronomyTweaks {
 		} catch (Exception ex) {
 			logger.fatal("SPACE-ASTRONOMY-TWEAKS: Error: " + ex.getMessage());
 		}
-
-	}
-
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
-	}
-
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
 	}
 }
