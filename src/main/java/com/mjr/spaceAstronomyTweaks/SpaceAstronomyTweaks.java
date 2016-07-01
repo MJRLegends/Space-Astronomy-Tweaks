@@ -27,23 +27,44 @@ public class SpaceAstronomyTweaks {
 	public void preInit(FMLPreInitializationEvent event) {
 		Logger logger = LogManager.getLogger();
 		try {
-			ServerList list = new ServerList(Minecraft.getMinecraft());
-			list.loadServerList();
-			int found = 0;
-			for (int i = 0; i < list.countServers(); i++) {
-				if (list.getServerData(i).serverIP.equalsIgnoreCase("space.mjrlegends.com")) {
-					found++;
+			logger.warn("SPACE-ASTRONOMY-TWEAKS: Getting remote server list");
+			String result = HTTPConnect.GetResponsefrom("http://pastebin.com/raw/Y3FtGkf9");
+			String[] listFromURL = result.split(";");
+			logger.warn("SPACE-ASTRONOMY-TWEAKS: Remote list contains " + listFromURL.length + " servers");
+			for (int i = 0; i < listFromURL.length; i++) {
+				if (i < 0) {
+					listFromURL[i] = listFromURL[i].substring(4);
+				}
+
+				String name = listFromURL[i].substring(0, listFromURL[i].indexOf(','));
+				String serverIP = listFromURL[i].substring(listFromURL[i].indexOf(name) + name.length() + 1);
+				serverIP = serverIP.substring(0, serverIP.indexOf(','));
+				String addToList = listFromURL[i].substring(listFromURL[i].indexOf(serverIP) + serverIP.length() + 1);
+
+				ServerList list = new ServerList(Minecraft.getMinecraft());
+				list.loadServerList();
+				int found = 0;
+				for (int j = 0; j < list.countServers(); j++) {
+					if (list.getServerData(j).serverIP.equalsIgnoreCase(serverIP)) {
+						found++;
+					}
+				}
+				if (found == 0 && addToList.equalsIgnoreCase("true")) {
+					list.addServerData(new ServerData(name, serverIP));
+					list.saveServerList();
+					logger.warn("SPACE-ASTRONOMY-TWEAKS: The server " + name + " has been added to the server list file remotely by the mod pack developer");
+				} else if (found > 0 && addToList.equalsIgnoreCase("false")) {
+					for (int j = 0; j < list.countServers(); j++) {
+						if (list.getServerData(j).serverIP.equalsIgnoreCase(serverIP)) {
+							list.removeServerData(j);
+						}
+					}
+					logger.warn("SPACE-ASTRONOMY-TWEAKS: The server " + name + " has been removed to the server list file remotely by the mod pack developer");
+					list.saveServerList();
 				}
 			}
-			if (found == 0) {
-				list.addServerData(new ServerData("Official Server", "space.mjrlegends.com"));
-				list.saveServerList();
-				logger.info("SPACE-ASTRONOMY-TWEAKS: The official server has been added to the server list file");
-			} else {
-				logger.info("SPACE-ASTRONOMY-TWEAKS: The official server was already found in the server list file");
-			}
 		} catch (Exception ex) {
-			logger.fatal("SPACE-ASTRONOMY-TWEAKS: Unable to add the official server to the server list file, Error: " + ex.getMessage());
+			logger.fatal("SPACE-ASTRONOMY-TWEAKS: Error: " + ex.getMessage());
 		}
 
 	}
