@@ -41,7 +41,8 @@ public class SpaceAstronomyTweaks {
 			String path = "" + event.getModConfigurationDirectory();
 			path = path.substring(0, path.length() - 6);
 
-			if (new File(path + "options.txt").exists()) {
+			logger.warn("SPACE-ASTRONOMY-TWEAKS: Options File Dialog!");
+			if (new File(path + "options.txt").exists() && new File(path + "/config/" + "options_Pack_Default.txt").exists()) {
 				JFrame frame = new JFrame();
 				frame.setSize(600, 600);
 				frame.setFocusable(true);
@@ -57,15 +58,19 @@ public class SpaceAstronomyTweaks {
 								"Message", JOptionPane.YES_NO_OPTION);
 
 				if (selectedOption == 0) {
-					if (new File(path + "options_Pack_Default.txt").exists()) {
-						new File(path + "options.txt").renameTo(new File(path
-								+ "options.txt_OLD"));
-						new File(path + "options_Pack_Default.txt")
-								.renameTo(new File(path + "options.txt"));
-					}
-				} else if (new File(path + "options_Pack_Default.txt").exists())
-					new File(path + "options_Pack_Default.txt")
+					logger.warn("SPACE-ASTRONOMY-TWEAKS: Option from Dialog was YES");
+					new File(path + "options.txt").renameTo(new File(path
+							+ "options.txt_OLD"));
+					logger.warn("SPACE-ASTRONOMY-TWEAKS: Renamed old/current Options file to 'options.txt_OLD' Its sorted in: " + path);
+					new File(path + "/config/" + "options_Pack_Default.txt")
 							.renameTo(new File(path + "options.txt"));
+					logger.warn("SPACE-ASTRONOMY-TWEAKS: Recommend Options file copied!");
+				}
+				else{
+					logger.warn("SPACE-ASTRONOMY-TWEAKS: Option from Dialog was NO");
+					new File(path + "/config/" + "options_Pack_Default.txt").delete();
+					logger.warn("SPACE-ASTRONOMY-TWEAKS: Recommend Options file removed!");
+				}
 			}
 		} catch (Exception ex) {
 			logger.fatal("SPACE-ASTRONOMY-TWEAKS: Error: " + ex.getMessage());
