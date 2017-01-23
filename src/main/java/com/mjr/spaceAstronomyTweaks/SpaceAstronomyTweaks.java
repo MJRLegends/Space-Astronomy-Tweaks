@@ -57,14 +57,14 @@ public class SpaceAstronomyTweaks {
 								"Message", JOptionPane.YES_NO_OPTION);
 
 				if (selectedOption == 0) {
-					if (new File(path + "options.txt_Pack_Default").exists()) {
+					if (new File(path + "options_Pack_Default.txt").exists()) {
 						new File(path + "options.txt").renameTo(new File(path
 								+ "options.txt_OLD"));
-						new File(path + "options.txt_Pack_Default")
+						new File(path + "options_Pack_Default.txt")
 								.renameTo(new File(path + "options.txt"));
 					}
-				} else if (new File(path + "options.txt_Pack_Default").exists())
-					new File(path + "options.txt_Pack_Default")
+				} else if (new File(path + "options_Pack_Default.txt").exists())
+					new File(path + "options_Pack_Default.txt")
 							.renameTo(new File(path + "options.txt"));
 			}
 		} catch (Exception ex) {
