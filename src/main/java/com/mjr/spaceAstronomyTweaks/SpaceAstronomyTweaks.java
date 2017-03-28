@@ -29,11 +29,14 @@ public class SpaceAstronomyTweaks {
 	@EventHandler
 	@SideOnly(Side.CLIENT)
 	public void preInit(FMLPreInitializationEvent event) {
+		Config.load();
 		// Option for Recommend Options file
-		optionsFileChecker(event);
+		if(Config.defaultOptionsFile)
+			optionsFileChecker(event);
 
 		// Server List Adding/Removing
-		serverlistChecker();
+		if(Config.autoServerList)
+			serverlistChecker();
 	}
 
 	private void optionsFileChecker(FMLPreInitializationEvent event) {
@@ -79,9 +82,10 @@ public class SpaceAstronomyTweaks {
 
 	private void serverlistChecker() {
 		try {
-			logger.warn("SPACE-ASTRONOMY-TWEAKS: Getting remote server list");
+			logger.warn("SPACE-ASTRONOMY-TWEAKS: Getting remote server list, from: " + Config.autoserverlistLink);
 			String result = HTTPConnect
-					.GetResponsefrom("http://pastebin.com/raw/Y3FtGkf9");
+					.GetResponsefrom(Config.autoserverlistLink);
+			System.out.println(result);
 			String[] listFromURL = result.split(";");
 			logger.warn("SPACE-ASTRONOMY-TWEAKS: Remote list contains "
 					+ listFromURL.length + " servers");
