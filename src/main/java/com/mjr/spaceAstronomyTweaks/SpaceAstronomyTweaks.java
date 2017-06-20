@@ -8,9 +8,12 @@ import javax.swing.JOptionPane;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,6 +39,19 @@ public class SpaceAstronomyTweaks {
 		// Server List Adding/Removing
 		if (Config.autoServerList)
 			serverlistChecker();
+	}
+
+	@EventHandler
+	@SideOnly(Side.CLIENT)
+	public void init(FMLInitializationEvent event) {
+
+		MinecraftForge.EVENT_BUS.register(new MainEventHandler());
+	}
+
+	@EventHandler
+	@SideOnly(Side.CLIENT)
+	public void postInit(FMLPostInitializationEvent event) {
+
 	}
 
 	private void optionsFileChecker(FMLPreInitializationEvent event) {

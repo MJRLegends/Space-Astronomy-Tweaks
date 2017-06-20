@@ -12,3 +12,4 @@ logs/
 *.launch
 build/
 gradle.properties
+run/
