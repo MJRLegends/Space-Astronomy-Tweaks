@@ -14,7 +14,7 @@ public class EventHandlerClient {
 	@SubscribeEvent
 	public void onClientTick(ClientTickEvent event) {
 		final Minecraft minecraft = FMLClientHandler.instance().getClient();
-		if (minecraft.currentScreen != null || minecraft.currentScreen instanceof GuiFilter) { // Check if Extra Utilities Filter GUI is open 
+		if (minecraft.currentScreen != null && minecraft.currentScreen instanceof GuiFilter) { // Check if Extra Utilities Filter GUI is open 
 			
 			//Get all key codes for hot bar buttons 1 - 9
 			int slot1 = Minecraft.getMinecraft().gameSettings.keyBindsHotbar[0].getKeyCode();
