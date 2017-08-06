@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,27 +28,26 @@ public class SpaceAstronomyTweaks {
 	public static Logger logger = LogManager.getLogger();
 
 	@EventHandler
-	@SideOnly(Side.CLIENT)
 	public void preInit(FMLPreInitializationEvent event) {
 		Config.load();
-		// Option for Recommend Options file
-		if (Config.defaultOptionsFile)
-			optionsFileChecker(event);
+		if (event.getSide() == Side.CLIENT) {
+			// Option for Recommend Options file
+			if (Config.defaultOptionsFile)
+				optionsFileChecker(event);
 
-		// Server List Adding/Removing
-		if (Config.autoServerList)
-			serverlistChecker();
+			// Server List Adding/Removing
+			if (Config.autoServerList)
+				serverlistChecker();
+		}
 	}
 
 	@EventHandler
-	@SideOnly(Side.CLIENT)
 	public void init(FMLInitializationEvent event) {
 
 		MinecraftForge.EVENT_BUS.register(new MainEventHandler());
 	}
 
 	@EventHandler
-	@SideOnly(Side.CLIENT)
 	public void postInit(FMLPostInitializationEvent event) {
 
 	}
