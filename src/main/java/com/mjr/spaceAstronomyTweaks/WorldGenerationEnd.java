@@ -24,7 +24,7 @@ public class WorldGenerationEnd implements IWorldGenerator {
 	}
 
 	private void generateSurface(World world, Random rand, int chunkX, int chunkZ) {
-		for (int i = 0; i < 13; i++) {
+		for (int i = 0; i < 3; i++) {
 			int randPosX = chunkX + rand.nextInt(16);
 			int randPosY = rand.nextInt(64);
 			int randPosZ = chunkZ + rand.nextInt(16);
