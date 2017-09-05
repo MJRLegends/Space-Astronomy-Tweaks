@@ -17,7 +17,8 @@ public class Config {
 	public static boolean clearSimpleAchievements;
 	public static String autoserverlistLink;
 	public static String[] clearSimpleAchievementsWorlds = {};
-
+	public static int quarryDim;
+	
 	public static void load() {
 		Configuration config = new Configuration(new File("config/SpaceAstronomyTweaks.cfg"));
 		config.load();
@@ -27,7 +28,8 @@ public class Config {
 		Config.clearSimpleAchievements = config.get(Config.mainoptions, "Clear Simple Achievements on Every World", false, "DONT TOUCH! OR IT WILL BREAK THE PACK").getBoolean(false);
 		Config.clearSimpleAchievementsWorlds = config.get("Worlds", Config.worlds, Config.clearSimpleAchievementsWorlds, "").getStringList();	
 		// defaultOptionsFile = config.get(mainoptions, "Use default bosses for all planets", false, "Will disable all custom bosses and will replace them with Creeper Bosses!").getBoolean(false);
-
+		Config.quarryDim = config.get(Config.mainoptions, "ExtraUtils2_Quarry_Dim", -9999, "Set this to the same as the ExtraUtils2_Quarry_Dim in the ExtraUtil 2 config").getInt(-9999);
+		
 		config.save();
 	}
 
