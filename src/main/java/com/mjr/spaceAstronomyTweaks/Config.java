@@ -18,7 +18,8 @@ public class Config {
 	public static String autoserverlistLink;
 	public static String[] clearSimpleAchievementsWorlds = {};
 	public static int quarryDim;
-	
+	public static boolean removeToolEffectiveness = false;
+
 	public static void load() {
 		Configuration config = new Configuration(new File("config/SpaceAstronomyTweaks.cfg"));
 		config.load();
@@ -29,7 +30,8 @@ public class Config {
 		Config.clearSimpleAchievementsWorlds = config.get("Worlds", Config.worlds, Config.clearSimpleAchievementsWorlds, "").getStringList();	
 		// defaultOptionsFile = config.get(mainoptions, "Use default bosses for all planets", false, "Will disable all custom bosses and will replace them with Creeper Bosses!").getBoolean(false);
 		Config.quarryDim = config.get(Config.mainoptions, "ExtraUtils2_Quarry_Dim", -9999, "Set this to the same as the ExtraUtils2_Quarry_Dim in the ExtraUtil 2 config").getInt(-9999);
-		
+		Config.removeToolEffectiveness = config.get(Config.mainoptions, "Remove Effectiveness from Vanilla Tools", true, "").getBoolean(true);
+
 		config.save();
 	}
 
