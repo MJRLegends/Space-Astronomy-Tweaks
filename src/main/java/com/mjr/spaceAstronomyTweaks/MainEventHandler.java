@@ -80,6 +80,11 @@ public class MainEventHandler {
 			if (stack.getItem() instanceof ItemSword) {
 				event.setCanceled(true);
 			}
+			
+			stack = player.getHeldItemOffhand();
+			if (stack.getItem() instanceof ItemSword) {
+				event.setCanceled(true);
+			}
 		}
 	}
 
@@ -91,6 +96,10 @@ public class MainEventHandler {
 			if (stack.getItem() instanceof ItemTool) {
 				event.setCanceled(true);
 			}
+			stack = player.getHeldItemOffhand();
+			if (stack.getItem() instanceof ItemTool) {
+				event.setCanceled(true);
+			}
 		}
 	}
 
@@ -99,6 +108,10 @@ public class MainEventHandler {
 		EntityPlayer player = event.getEntityPlayer();
 		if (player != null) {
 			ItemStack stack = player.getHeldItemMainhand();
+			if (stack.getItem() instanceof ItemHoe) {
+				event.setCanceled(true);
+			}
+			stack = player.getHeldItemOffhand();
 			if (stack.getItem() instanceof ItemHoe) {
 				event.setCanceled(true);
 			}
