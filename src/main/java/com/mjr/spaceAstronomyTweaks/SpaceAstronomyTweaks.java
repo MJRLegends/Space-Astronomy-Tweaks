@@ -43,7 +43,6 @@ public class SpaceAstronomyTweaks {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-
 		MinecraftForge.EVENT_BUS.register(new MainEventHandler());
 	}
 
