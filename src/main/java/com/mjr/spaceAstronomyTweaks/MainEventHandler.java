@@ -3,10 +3,8 @@ package com.mjr.spaceAstronomyTweaks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemHoe;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -78,12 +76,11 @@ public class MainEventHandler {
 			EntityPlayer player = (EntityPlayer) entity;
 
 			ItemStack stack = player.getHeldItemMainhand();
-			if (stack.getItem() instanceof ItemSword) {
+			if (stack.getItem() == Items.WOODEN_SWORD || stack.getItem() == Items.STONE_SWORD || stack.getItem() == Items.IRON_SWORD || stack.getItem() == Items.GOLDEN_SWORD || stack.getItem() == Items.DIAMOND_SWORD) {
 				event.setCanceled(true);
 			}
-			
 			stack = player.getHeldItemOffhand();
-			if (stack.getItem() instanceof ItemSword) {
+			if (stack.getItem() == Items.WOODEN_SWORD || stack.getItem() == Items.STONE_SWORD || stack.getItem() == Items.IRON_SWORD || stack.getItem() == Items.GOLDEN_SWORD || stack.getItem() == Items.DIAMOND_SWORD) {
 				event.setCanceled(true);
 			}
 		}
@@ -94,11 +91,17 @@ public class MainEventHandler {
 		EntityPlayer player = event.getEntityPlayer();
 		if (player != null) {
 			ItemStack stack = player.getHeldItemMainhand();
-			if (stack.getItem() instanceof ItemTool) {
+			if (stack.getItem() == Items.WOODEN_AXE || stack.getItem() == Items.STONE_AXE || stack.getItem() == Items.IRON_AXE || stack.getItem() == Items.GOLDEN_AXE || stack.getItem() == Items.DIAMOND_AXE
+					|| stack.getItem() == Items.WOODEN_PICKAXE || stack.getItem() == Items.STONE_PICKAXE || stack.getItem() == Items.IRON_PICKAXE || stack.getItem() == Items.GOLDEN_PICKAXE
+					|| stack.getItem() == Items.DIAMOND_PICKAXE || stack.getItem() == Items.WOODEN_SHOVEL || stack.getItem() == Items.STONE_SHOVEL || stack.getItem() == Items.IRON_SHOVEL
+					|| stack.getItem() == Items.GOLDEN_SHOVEL || stack.getItem() == Items.DIAMOND_SHOVEL) {
 				event.setCanceled(true);
 			}
 			stack = player.getHeldItemOffhand();
-			if (stack.getItem() instanceof ItemTool) {
+			if (stack.getItem() == Items.WOODEN_AXE || stack.getItem() == Items.STONE_AXE || stack.getItem() == Items.IRON_AXE || stack.getItem() == Items.GOLDEN_AXE || stack.getItem() == Items.DIAMOND_AXE
+					|| stack.getItem() == Items.WOODEN_PICKAXE || stack.getItem() == Items.STONE_PICKAXE || stack.getItem() == Items.IRON_PICKAXE || stack.getItem() == Items.GOLDEN_PICKAXE
+					|| stack.getItem() == Items.DIAMOND_PICKAXE || stack.getItem() == Items.WOODEN_SHOVEL || stack.getItem() == Items.STONE_SHOVEL || stack.getItem() == Items.IRON_SHOVEL
+					|| stack.getItem() == Items.GOLDEN_SHOVEL || stack.getItem() == Items.DIAMOND_SHOVEL) {				
 				event.setCanceled(true);
 			}
 		}
@@ -109,14 +112,13 @@ public class MainEventHandler {
 		EntityPlayer player = event.getEntityPlayer();
 		if (player != null) {
 			ItemStack stack = player.getHeldItemMainhand();
-			if (stack.getItem() instanceof ItemHoe) {
+			if (stack.getItem() == Items.WOODEN_HOE || stack.getItem() == Items.STONE_HOE || stack.getItem() == Items.IRON_HOE || stack.getItem() == Items.GOLDEN_HOE || stack.getItem() == Items.DIAMOND_HOE) {
 				event.setCanceled(true);
 			}
 			stack = player.getHeldItemOffhand();
-			if (stack.getItem() instanceof ItemHoe) {
+			if (stack.getItem() == Items.WOODEN_HOE || stack.getItem() == Items.STONE_HOE || stack.getItem() == Items.IRON_HOE || stack.getItem() == Items.GOLDEN_HOE || stack.getItem() == Items.DIAMOND_HOE) {
 				event.setCanceled(true);
 			}
 		}
 	}
-
 }
