@@ -44,7 +44,8 @@ public class SpaceAstronomyTweaks {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		GameRegistry.registerWorldGenerator(new WorldGenerationEnd(), 4);
+		if(Config.generateBOPEndOres)
+			GameRegistry.registerWorldGenerator(new WorldGenerationEnd(), 4);
 		MinecraftForge.EVENT_BUS.register(new MainEventHandler());
 	}
 
