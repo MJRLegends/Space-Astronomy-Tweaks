@@ -71,21 +71,23 @@ public class MainEventHandler {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onDamageTaken(LivingHurtEvent event) {
 		Entity entity = event.getSource().getEntity();
-		if (!(entity instanceof FakePlayer) && (entity instanceof EntityPlayer)) {
-			if (Config.removeToolEffectiveness == false)
-				return;
-			EntityPlayer player = (EntityPlayer) entity;
-			ItemStack stack = player.getHeldItemMainhand();
-			if (stack == null)
-				return;
-			if (stack.getItem() == Items.WOODEN_SWORD || stack.getItem() == Items.STONE_SWORD || stack.getItem() == Items.IRON_SWORD || stack.getItem() == Items.GOLDEN_SWORD || stack.getItem() == Items.DIAMOND_SWORD) {
-				event.setCanceled(true);
-			}
-			stack = player.getHeldItemOffhand();
-			if (stack == null)
-				return;
-			if (stack.getItem() == Items.WOODEN_SWORD || stack.getItem() == Items.STONE_SWORD || stack.getItem() == Items.IRON_SWORD || stack.getItem() == Items.GOLDEN_SWORD || stack.getItem() == Items.DIAMOND_SWORD) {
-				event.setCanceled(true);
+		if (entity != null) {
+			if (!(entity instanceof FakePlayer) && (entity instanceof EntityPlayer)) {
+				if (Config.removeToolEffectiveness == false)
+					return;
+				EntityPlayer player = (EntityPlayer) entity;
+				ItemStack stack = player.getHeldItemMainhand();
+				if (stack == null)
+					return;
+				if (stack.getItem() == Items.WOODEN_SWORD || stack.getItem() == Items.STONE_SWORD || stack.getItem() == Items.IRON_SWORD || stack.getItem() == Items.GOLDEN_SWORD || stack.getItem() == Items.DIAMOND_SWORD) {
+					event.setCanceled(true);
+				}
+				stack = player.getHeldItemOffhand();
+				if (stack == null)
+					return;
+				if (stack.getItem() == Items.WOODEN_SWORD || stack.getItem() == Items.STONE_SWORD || stack.getItem() == Items.IRON_SWORD || stack.getItem() == Items.GOLDEN_SWORD || stack.getItem() == Items.DIAMOND_SWORD) {
+					event.setCanceled(true);
+				}
 			}
 		}
 	}
@@ -122,10 +124,14 @@ public class MainEventHandler {
 			if (Config.removeToolEffectiveness == false)
 				return;
 			ItemStack stack = player.getHeldItemMainhand();
+			if (stack == null)
+				return;
 			if (stack.getItem() == Items.WOODEN_HOE || stack.getItem() == Items.STONE_HOE || stack.getItem() == Items.IRON_HOE || stack.getItem() == Items.GOLDEN_HOE || stack.getItem() == Items.DIAMOND_HOE) {
 				event.setCanceled(true);
 			}
 			stack = player.getHeldItemOffhand();
+			if (stack == null)
+				return;
 			if (stack.getItem() == Items.WOODEN_HOE || stack.getItem() == Items.STONE_HOE || stack.getItem() == Items.IRON_HOE || stack.getItem() == Items.GOLDEN_HOE || stack.getItem() == Items.DIAMOND_HOE) {
 				event.setCanceled(true);
 			}
