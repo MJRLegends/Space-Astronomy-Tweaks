@@ -28,7 +28,7 @@ minecraft {
 
 dependencies {
 	compile files (
-		"/extrautilities-1.2.12-deobf.jar",
+		"extrautilities-1.2.12-deobf.jar",
 	)
 
     // you may put jars on which you depend on in ./libs
