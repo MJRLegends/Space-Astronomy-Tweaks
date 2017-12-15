@@ -18,7 +18,7 @@ public class Config {
 	public static String autoserverlistLink;
 	public static String[] clearSimpleAchievementsWorlds = {};
 	public static int quarryDim;
-	public static boolean removeToolEffectiveness = false;
+	public static boolean removeToolEffectiveness;
 
 	public static void load() {
 		Configuration config = new Configuration(new File("config/SpaceAstronomyTweaks.cfg"));
