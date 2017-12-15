@@ -71,7 +71,7 @@ public class MainEventHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onDamageTaken(LivingHurtEvent event) {
-		Entity entity = event.getSource().getEntity();
+		Entity entity = event.getSource().getTrueSource();
 		if (entity != null) {
 			if (!(entity instanceof FakePlayer) && (entity instanceof EntityPlayer)) {
 				if (Config.removeToolEffectiveness == false)
