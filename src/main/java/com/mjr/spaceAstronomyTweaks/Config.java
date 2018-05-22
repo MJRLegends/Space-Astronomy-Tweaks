@@ -21,7 +21,8 @@ public class Config {
 	public static boolean removeToolEffectiveness;
 	public static boolean generateBOPEndOres;
 	public static boolean removeRF_CC_Compatibility;
-
+	public static boolean removeMM_CC_Compatibility;
+	
 	public static void load() {
 		Configuration config = new Configuration(new File("config/SpaceAstronomyTweaks.cfg"));
 		config.load();
@@ -34,6 +35,7 @@ public class Config {
 		Config.removeToolEffectiveness = config.get(Config.mainoptions, "Remove Effectiveness from Vanilla Tools", true, "DONT TOUCH! OR IT WILL BREAK THE PACK, TO BE CHANGED BY THE MOD PACK DEV ONLY!").getBoolean(true);
 		Config.generateBOPEndOres = config.get(Config.mainoptions, "Enable fix for generating Biomes o Penty End Ores", true, "DONT TOUCH! OR IT WILL BREAK THE PACK, TO BE CHANGED BY THE MOD PACK DEV ONLY!").getBoolean(true);
 		Config.removeRF_CC_Compatibility = config.get(Config.mainoptions, "Disable RefinedStorage External Storage with ColossalChests Interfaces Compatibility", true, "DONT TOUCH! OR IT WILL BREAK THE PACK, TO BE CHANGED BY THE MOD PACK DEV ONLY!").getBoolean(true);
+		Config.removeMM_CC_Compatibility = config.get(Config.mainoptions, "Disable Mekanism Item Pipe with ColossalChests Interfaces Compatibility", true, "DONT TOUCH! OR IT WILL BREAK THE PACK, TO BE CHANGED BY THE MOD PACK DEV ONLY!").getBoolean(true);
 		config.save();
 	}
 

@@ -148,65 +148,124 @@ public class MainEventHandler {
 		EntityPlayer player = event.getPlayer();
 		World world = event.getWorld();
 		if (player != null && world != null) {
-			if (Config.removeToolEffectiveness == false)
-				return;
 			if (world.isRemote == false) {
-				Block placedBlock = event.getPlacedBlock().getBlock();
-				if (event.getPlacedBlock() != null) {
-					boolean isRSBlock = false;
-					boolean isCCBlock = false;
+				if (Config.removeRF_CC_Compatibility) {
+					Block placedBlock = event.getPlacedBlock().getBlock();
+					if (event.getPlacedBlock() != null) {
+						boolean isRSBlock = false;
+						boolean isCCBlock = false;
 
-					if (placedBlock.getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage"))
-						isRSBlock = true;
-					if (placedBlock.getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests"))
-						isCCBlock = true;
+						if (placedBlock.getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage"))
+							isRSBlock = true;
+						if (placedBlock.getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests"))
+							isCCBlock = true;
 
-					if (isRSBlock || isCCBlock) {
-						if (placedBlock.getRegistryName().getResourcePath().equalsIgnoreCase("external_storage") || placedBlock.getRegistryName().getResourcePath().equalsIgnoreCase("interface")) {
-							BlockPos posOld = event.getPos();
-							BlockPos pos = posOld;
+						if (isRSBlock || isCCBlock) {
+							if (placedBlock.getRegistryName().getResourcePath().equalsIgnoreCase("external_storage") || placedBlock.getRegistryName().getResourcePath().equalsIgnoreCase("interface")) {
+								BlockPos posOld = event.getPos();
+								BlockPos pos = posOld;
 
-							pos = posOld.west();
-							IBlockState state = world.getBlockState(pos);
-							pos = posOld.south();
-							IBlockState state1 = world.getBlockState(pos);
-							pos = posOld.north();
-							IBlockState state2 = world.getBlockState(pos);
-							pos = posOld.east();
-							IBlockState state3 = world.getBlockState(pos);
-							pos = posOld.up();
-							IBlockState state4 = world.getBlockState(pos);
-							pos = posOld.down();
-							IBlockState state5 = world.getBlockState(pos);
+								pos = posOld.west();
+								IBlockState state = world.getBlockState(pos);
+								pos = posOld.south();
+								IBlockState state1 = world.getBlockState(pos);
+								pos = posOld.north();
+								IBlockState state2 = world.getBlockState(pos);
+								pos = posOld.east();
+								IBlockState state3 = world.getBlockState(pos);
+								pos = posOld.up();
+								IBlockState state4 = world.getBlockState(pos);
+								pos = posOld.down();
+								IBlockState state5 = world.getBlockState(pos);
 
-							if (state != null && state1 != null && state2 != null && state3 != null && state4 != null && state5 != null) {
-								boolean removeBlock = false;
-								if (isCCBlock) {
-									if (state.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage") || state1.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage")
-											|| state2.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage") || state3.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage")
-											|| state4.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage") || state5.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage"))
-										if (state.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage") || state1.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage")
-												|| state2.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage") || state3.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage")
-												|| state4.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage") || state5.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage"))
-											removeBlock = true;
-								} else if (isRSBlock) {
-									if (state.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state1.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests")
-											|| state2.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state3.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests")
-											|| state4.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state5.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests"))
-										if (state.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state1.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface")
-												|| state2.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state3.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface")
-												|| state4.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state5.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface"))
-											removeBlock = true;
-								}
-								if (removeBlock) {
-									if (!(player instanceof FakePlayer))
-										player.addChatMessage(new TextComponentString(TextFormatting.RED + "Sorry but this compatibility has been disabled due to issues!"));
-									event.setCanceled(true);
+								if (state != null && state1 != null && state2 != null && state3 != null && state4 != null && state5 != null) {
+									boolean removeBlock = false;
+									if (isCCBlock) {
+										if (state.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage") || state1.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage")
+												|| state2.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage") || state3.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage")
+												|| state4.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage") || state5.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("refinedstorage"))
+											if (state.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage") || state1.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage")
+													|| state2.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage") || state3.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage")
+													|| state4.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage") || state5.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("external_storage"))
+												removeBlock = true;
+									} else if (isRSBlock) {
+										if (state.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state1.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests")
+												|| state2.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state3.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests")
+												|| state4.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state5.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests"))
+											if (state.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state1.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface")
+													|| state2.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state3.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface")
+													|| state4.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state5.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface"))
+												removeBlock = true;
+									}
+									if (removeBlock) {
+										if (!(player instanceof FakePlayer))
+											player.addChatMessage(new TextComponentString(TextFormatting.RED + "Sorry but this compatibility has been disabled due to issues!"));
+										event.setCanceled(true);
+									}
 								}
 							}
 						}
 					}
 				}
+				if (Config.removeMM_CC_Compatibility) {
+					Block placedBlock = event.getPlacedBlock().getBlock();
+					if (event.getPlacedBlock() != null) {
+						boolean isRSBlock = false;
+						boolean isCCBlock = false;
+
+						if (placedBlock.getRegistryName().getResourceDomain().equalsIgnoreCase("mcmultipart"))
+							isRSBlock = true;
+						if (placedBlock.getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests"))
+							isCCBlock = true;
+
+						if (isRSBlock || isCCBlock) {
+							if (placedBlock.getRegistryName().getResourcePath().equalsIgnoreCase("multipart") || placedBlock.getRegistryName().getResourcePath().equalsIgnoreCase("interface")) {
+								BlockPos posOld = event.getPos();
+								BlockPos pos = posOld;
+
+								pos = posOld.west();
+								IBlockState state = world.getBlockState(pos);
+								pos = posOld.south();
+								IBlockState state1 = world.getBlockState(pos);
+								pos = posOld.north();
+								IBlockState state2 = world.getBlockState(pos);
+								pos = posOld.east();
+								IBlockState state3 = world.getBlockState(pos);
+								pos = posOld.up();
+								IBlockState state4 = world.getBlockState(pos);
+								pos = posOld.down();
+								IBlockState state5 = world.getBlockState(pos);
+
+								if (state != null && state1 != null && state2 != null && state3 != null && state4 != null && state5 != null) {
+									boolean removeBlock = false;
+									if (isCCBlock) {
+										if (state.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("mcmultipart") || state1.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("mcmultipart")
+												|| state2.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("mcmultipart") || state3.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("mcmultipart")
+												|| state4.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("mcmultipart") || state5.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("mcmultipart"))
+											if (state.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("multipart") || state1.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("multipart")
+													|| state2.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("multipart") || state3.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("multipart")
+													|| state4.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("multipart") || state5.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("multipart"))
+												removeBlock = true;
+									} else if (isRSBlock) {
+										if (state.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state1.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests")
+												|| state2.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state3.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests")
+												|| state4.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests") || state5.getBlock().getRegistryName().getResourceDomain().equalsIgnoreCase("colossalchests"))
+											if (state.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state1.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface")
+													|| state2.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state3.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface")
+													|| state4.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface") || state5.getBlock().getRegistryName().getResourcePath().equalsIgnoreCase("interface"))
+												removeBlock = true;
+									}
+									if (removeBlock) {
+										if (!(player instanceof FakePlayer))
+											player.addChatMessage(new TextComponentString(TextFormatting.RED + "Sorry but this compatibility has been disabled due to issues!"));
+										event.setCanceled(true);
+									}
+								}
+							}
+						}
+					}
+				}
+				
 			}
 		}
 	}
