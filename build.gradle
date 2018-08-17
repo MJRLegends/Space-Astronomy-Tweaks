@@ -9,9 +9,12 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "0.3"
+version = "1.11.2-0.3"
 group= "com.mjr.spaceAstronomyTweaks" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SpaceAstronomyTweaks"
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
     version = "1.11.2-13.20.0.2282"
