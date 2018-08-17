@@ -9,14 +9,17 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "0.2"
+version = "1.12.2-0.2"
 group= "com.mjr.spaceAstronomyTweaks" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "SpaceAstronomyTweaks"
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
     version = "1.12.2-14.23.1.2566"
     runDir = "run"
-    mappings = "snapshot_20171003".
+    mappings = "snapshot_20171003"
 	makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
