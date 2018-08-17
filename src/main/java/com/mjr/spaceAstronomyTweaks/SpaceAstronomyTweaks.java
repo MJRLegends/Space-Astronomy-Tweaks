@@ -5,6 +5,9 @@ import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
@@ -12,15 +15,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-@Mod(modid = Constants.modID, name = Constants.modName, version = Constants.modVersion)
+@Mod(modid = Constants.modID, name = Constants.modName, version = Constants.modVersion, certificateFingerprint = Constants.CERTIFICATEFINGERPRINT)
 public class SpaceAstronomyTweaks {
 
 	@Instance(Constants.modID)
@@ -56,7 +57,7 @@ public class SpaceAstronomyTweaks {
 			String path = "" + event.getModConfigurationDirectory();
 			path = path.substring(0, path.length() - 6);
 
-			logger.warn("SPACE-ASTRONOMY-TWEAKS: Options File Dialog!");
+			logger.warn(Constants.modID + "Options File Dialog!");
 			if (new File(path + "options.txt").exists() && new File(path + "/config/" + "options_Pack_Default.txt").exists()) {
 				JFrame frame = new JFrame();
 				frame.setSize(600, 600);
@@ -64,35 +65,35 @@ public class SpaceAstronomyTweaks {
 				frame.setAlwaysOnTop(true);
 
 				for (int i = 0; i < 3; i++)
-					logger.warn("SPACE-ASTRONOMY-TWEAKS: There is a window open at the moment, that needs a response! Please see the Dialog box for details! THIS IS NOT A BUG WITH YOUR PACK STARTING!!");
+					logger.warn(Constants.modID + "There is a window open at the moment, that needs a response! Please see the Dialog box for details! THIS IS NOT A BUG WITH YOUR PACK STARTING!!");
 
 				int selectedOption = JOptionPane.showConfirmDialog(frame, "Would you like to use the Recommend Options file? \n (This is replace your Controls and give you default Video/Sound Settings!) \n\n Or press No to keep your current one!",
 						"Message", JOptionPane.YES_NO_OPTION);
 
 				if (selectedOption == 0) {
-					logger.warn("SPACE-ASTRONOMY-TWEAKS: Option from Dialog was YES");
+					logger.warn(Constants.modID + "Option from Dialog was YES");
 					new File(path + "options.txt").renameTo(new File(path + "options.txt_OLD"));
-					logger.warn("SPACE-ASTRONOMY-TWEAKS: Renamed old/current Options file to 'options.txt_OLD' Its sorted in: " + path);
+					logger.warn(Constants.modID + "Renamed old/current Options file to 'options.txt_OLD' Its sorted in: " + path);
 					new File(path + "/config/" + "options_Pack_Default.txt").renameTo(new File(path + "options.txt"));
-					logger.warn("SPACE-ASTRONOMY-TWEAKS: Recommend Options file copied!");
+					logger.warn(Constants.modID + "Recommend Options file copied!");
 				} else {
-					logger.warn("SPACE-ASTRONOMY-TWEAKS: Option from Dialog was NO");
+					logger.warn(Constants.modID + "Option from Dialog was NO");
 					new File(path + "/config/" + "options_Pack_Default.txt").delete();
-					logger.warn("SPACE-ASTRONOMY-TWEAKS: Recommend Options file removed!");
+					logger.warn(Constants.modID + "Recommend Options file removed!");
 				}
 			}
 		} catch (Exception ex) {
-			logger.fatal("SPACE-ASTRONOMY-TWEAKS: Error: " + ex.getMessage());
+			logger.fatal(Constants.modID + "Error: " + ex.getMessage());
 		}
 	}
 
 	private void serverlistChecker() {
 		try {
-			logger.warn("SPACE-ASTRONOMY-TWEAKS: Getting remote server list, from: " + Config.autoserverlistLink);
+			logger.warn(Constants.modID + "Getting remote server list, from: " + Config.autoserverlistLink);
 			String result = HTTPConnect.GetResponsefrom(Config.autoserverlistLink);
 			System.out.println(result);
 			String[] listFromURL = result.split(";");
-			logger.warn("SPACE-ASTRONOMY-TWEAKS: Remote list contains " + listFromURL.length + " servers");
+			logger.warn(Constants.modID + "Remote list contains " + listFromURL.length + " servers");
 			for (int i = 0; i < listFromURL.length; i++) {
 				if (i < 0) {
 					listFromURL[i] = listFromURL[i].substring(4);
@@ -113,19 +114,24 @@ public class SpaceAstronomyTweaks {
 				if (found == 0 && addToList.equalsIgnoreCase("true")) {
 					list.addServerData(new ServerData(name, serverIP, false));
 					list.saveServerList();
-					logger.warn("SPACE-ASTRONOMY-TWEAKS: The server " + name + " has been added to the server list file remotely by the mod pack developer");
+					logger.warn(Constants.modID + "The server " + name + " has been added to the server list file remotely by the mod pack developer");
 				} else if (found > 0 && addToList.equalsIgnoreCase("false")) {
 					for (int j = 0; j < list.countServers(); j++) {
 						if (list.getServerData(j).serverIP.equalsIgnoreCase(serverIP)) {
 							list.removeServerData(j);
 						}
 					}
-					logger.warn("SPACE-ASTRONOMY-TWEAKS: The server " + name + " has been removed to the server list file remotely by the mod pack developer");
+					logger.warn(Constants.modID + "The server " + name + " has been removed to the server list file remotely by the mod pack developer");
 					list.saveServerList();
 				}
 			}
 		} catch (Exception ex) {
-			logger.fatal("SPACE-ASTRONOMY-TWEAKS: Error: " + ex.getMessage());
+			logger.fatal(Constants.modID + "Error: " + ex.getMessage());
 		}
+	}
+
+	@EventHandler
+	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+		logger.fatal(Constants.modID + " Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported!");
 	}
 }
