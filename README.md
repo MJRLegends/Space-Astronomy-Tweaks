@@ -1,3 +1,5 @@
+[![](http://cf.way2muchnoise.eu/full_space-astronomy-tweaks_downloads.svg)](https://minecraft.curseforge.com/projects/space-astronomy-tweaks) [![](http://cf.way2muchnoise.eu/versions/Minecraft_space-astronomy-tweaks_all.svg)](https://minecraft.curseforge.com/projects/space-astronomy-tweaks)
+
 # Space-Astronomy-Tweaks
 Small Tweaks for the Space Astronomy Series of Mod Packs, Made by MJRLegends
 
