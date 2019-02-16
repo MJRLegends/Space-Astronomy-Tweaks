@@ -1,0 +1,21 @@
+modLoader="javafml" #mandatory
+loaderVersion="[24,)" #mandatory (24 is current forge version)
+#issueTrackerURL="https://github.com/MJRLegends/TileEntityLimiter/issues" #optional
+displayURL="https://minecraft.curseforge.com/projects/space-astronomy-tweaks" #optional
+#logoFile="examplemod.png" #optional
+credits="MJRLegends for making the mod" #optional
+authors="MJRLegends" #optional
+[[mods]] #mandatory
+modId="spaceastronomytweaks" #mandatory
+version="1.0.0" #mandatory
+displayName="SpaceAstronomyTweaks" #mandatory
+#updateJSONURL="http://myurl.me/" #optional
+description='''
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.spaceastronomytweaks]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[24,)" #mandatory
+    ordering="NONE"
+    side="BOTH"

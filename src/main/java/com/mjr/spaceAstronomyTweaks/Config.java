@@ -1,58 +1,55 @@
 package com.mjr.spaceAstronomyTweaks;
 
-import java.io.File;
-import java.util.Arrays;
+import org.apache.commons.lang3.tuple.Pair;
 
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 
 public class Config {
-	// Sections/Groups
-	private static String mainoptions = "main options";
-	private static String worlds = "worlds";
 
-	// Config options
-	public static boolean autoServerList;
-	public static boolean defaultOptionsFile = false;
-	public static boolean clearSimpleAchievements;
-	public static String autoserverlistLink;
-	public static String[] clearSimpleAchievementsWorlds = {};
-	public static int quarryDim;
-	public static boolean removeToolEffectiveness;
+    static final ForgeConfigSpec serverSpec;
+    public static final Server SERVER;
 
-	public static void load() {
-		Configuration config = new Configuration(new File("config/SpaceAstronomyTweaks.cfg"));
-		config.load();
+    static {
+        final Pair<Server, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Server::new);
+        serverSpec = specPair.getRight();
+        SERVER = specPair.getLeft();
+    }
+    
+    public static class Server {
+    	public BooleanValue removeToolEffectiveness;
 
-		Config.autoServerList = config.get(Config.mainoptions, "Enable auto add servers to the list", true, "Setting this to false will stop servers being added and removed from your server list!").getBoolean(true);
-		Config.autoserverlistLink = config.get(Config.mainoptions, "Servers to the list url", "https://pastebin.com/raw/Y3FtGkf9", "Link the Auto server list management will use!").getString();
-		Config.clearSimpleAchievements = config.get(Config.mainoptions, "Clear Simple Achievements on Every World", false, "DONT TOUCH! OR IT WILL BREAK THE PACK").getBoolean(false);
-		Config.clearSimpleAchievementsWorlds = config.get("Worlds", Config.worlds, Config.clearSimpleAchievementsWorlds, "").getStringList();	
-		// defaultOptionsFile = config.get(mainoptions, "Use default bosses for all planets", false, "Will disable all custom bosses and will replace them with Creeper Bosses!").getBoolean(false);
-		Config.quarryDim = config.get(Config.mainoptions, "ExtraUtils2_Quarry_Dim", -9999, "Set this to the same as the ExtraUtils2_Quarry_Dim in the ExtraUtil 2 config").getInt(-9999);
-		Config.removeToolEffectiveness = config.get(Config.mainoptions, "Remove Effectiveness from Vanilla Tools", true, "").getBoolean(true);
-
-		config.save();
+	    Server(ForgeConfigSpec.Builder builder) {
+			builder.comment("Server configuration settings").push("server");
+			removeToolEffectiveness = builder.comment("Remove Effectiveness from Vanilla Tools").translation("config.removeToolEffectiveness.enable").define("removeToolEffectiveness", true);
+	
+			builder.pop();
+	    }
 	}
+    
+    static final ForgeConfigSpec clientSpec;
+    public static final Client CLIENT;
 
-	public static void addWorldToList(String name) {
-		Configuration config = new Configuration(new File("config/SpaceAstronomyTweaks.cfg"));
-		config.load();
+    static {
+        final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+        clientSpec = specPair.getRight();
+        CLIENT = specPair.getLeft();
+    }
+    
+    public static class Client {
+    	public BooleanValue autoServerList;
+    	public boolean defaultOptionsFile = false;
+    	public ConfigValue<String> autoserverlistLink;
 
-		String[] oldIDs = Config.clearSimpleAchievementsWorlds;
-		clearSimpleAchievementsWorlds = new String[Config.clearSimpleAchievementsWorlds.length + 1];
-		System.arraycopy(oldIDs, 0, Config.clearSimpleAchievementsWorlds, 0, oldIDs.length);
-
-		Config.clearSimpleAchievementsWorlds[Config.clearSimpleAchievementsWorlds.length - 1] = name;
-		String[] values = new String[Config.clearSimpleAchievementsWorlds.length];
-		Arrays.sort(Config.clearSimpleAchievementsWorlds);
-
-		for (int i = 0; i < values.length; i++) {
-			values[i] = String.valueOf(Config.clearSimpleAchievementsWorlds[i]);
-		}
-
-		Property temp = config.get("Worlds", Config.worlds, new String[] {}, "").setValues(values);
-		Config.clearSimpleAchievementsWorlds = temp.getStringList();
-		config.save();
+    	Client(ForgeConfigSpec.Builder builder) {
+			builder.comment("Server configuration settings").push("server");
+			autoServerList = builder.comment("Enable auto add servers to the list").translation("config.autoAdd.enable").define("autoServerListAdding", true);
+			autoserverlistLink = builder.comment("Url for looking up servers to add/remove from the server list").translation("config.autoAdd.link").define("", "https://pastebin.com/raw/Y3FtGkf9");
+			
+			// defaultOptionsFile = config.get(mainoptions, "Use default bosses for all planets", false, "Will disable all custom bosses and will replace them with Creeper Bosses!").getBoolean(false);
+	
+			builder.pop();
+	    }
 	}
 }
