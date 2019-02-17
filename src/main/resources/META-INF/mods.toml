@@ -1,13 +1,14 @@
 modLoader="javafml"
 loaderVersion="[25,)"
-displayURL="https://minecraft.curseforge.com/projects/space-astronomy-tweaks"
-credits="MJRLegends for making the mod"
-authors="MJRLegends"
 [[mods]]
 modId="spaceastronomytweaks"
 version="1.0.0"
 displayName="SpaceAstronomyTweaks"
+displayURL="https://minecraft.curseforge.com/projects/space-astronomy-tweaks"
+credits="MJRLegends for making the mod"
+authors="MJRLegends"
 description='''
+Tweaks for the Space Astronomy Mod Pack Series
 '''
 [[dependencies.spaceastronomytweaks]]
     modId="forge"
