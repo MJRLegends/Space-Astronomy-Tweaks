@@ -1,5 +1,6 @@
 modLoader="javafml"
 loaderVersion="[25,)"
+issueTrackerURL="https://github.com/MJRLegends/Space-Astronomy-Tweaks/issues"
 [[mods]]
 modId="spaceastronomytweaks"
 version="1.0.0"
