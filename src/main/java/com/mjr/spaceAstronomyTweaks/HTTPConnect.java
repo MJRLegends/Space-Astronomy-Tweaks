@@ -21,11 +21,13 @@ public class HTTPConnect {
 	    while ((read = reader.read(chars)) != -1)
 		buffer.append(chars, 0, read);
 	} catch (Exception e) {
+		e.printStackTrace();
 	} finally {
 	    try {
 		if (reader != null)
 		    reader.close();
 	    } catch (IOException e) {
+	    	e.printStackTrace();
 	    }
 	}
 	return buffer.toString();
