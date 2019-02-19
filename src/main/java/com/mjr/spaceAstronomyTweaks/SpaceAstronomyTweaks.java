@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod("spaceastronomytweaks")
@@ -115,7 +116,7 @@ public class SpaceAstronomyTweaks {
 		}
 	}
 
-	// public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-	// logger.fatal(Constants.modID + " Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported!");
-	// }
+	 public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+		 logger.fatal(Constants.modID + " Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported!");
+	 }
 }
